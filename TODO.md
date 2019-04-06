@@ -27,3 +27,5 @@
 5 notifikationer
 - ballon popup
 - lyd ?
+
+6 CRUD for default sæt af tasks
