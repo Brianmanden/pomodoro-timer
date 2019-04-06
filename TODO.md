@@ -2,7 +2,7 @@
 
 1 CRUD for task elements
 - skrive script der kan gemme til local storage
--- prefix + key/value-pairs eller komplet json struktur ?
+- prefix + key/value-pairs eller komplet json struktur ?
 
 2 oprette task element
 - oprettes med default tekst
