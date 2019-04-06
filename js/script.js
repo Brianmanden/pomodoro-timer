@@ -21,6 +21,7 @@
             const elem = event.target;
             const action = event.target.dataset["action"];
             const timerElem = elem.parentElement.querySelector("[data-timer]");
+            const taskTextElem = elem.parentElement.querySelector("[data-taskText]");
             let timerVal = parseInt(timerElem.dataset.timer);
 
             switch(action){
@@ -29,7 +30,10 @@
                 break;
 
                 case 'edit':
-                    console.log(action);
+                    console.log(action, taskTextElem);
+                    taskTextElem.contentEditable = true;
+                    taskTextElem.focus();
+                    console.log(action, taskTextElem);
                 break;
 
                 case 'subtract':
@@ -47,7 +51,7 @@
                 break;
             }
         }else{
-            console.log("no action");
+            console.log("click but no action");
         }
     });
 
