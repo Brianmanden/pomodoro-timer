@@ -10,87 +10,15 @@
         <link rel="stylesheet" type="text/css" href="./css/styles.css"/>
     </head>
     <body>
-        <div class="container-fluid taskContainer">
+        <div class="container-fluid">
             <h4 class="text-center">Pomodoro Timer</h4>
             <hr />
-            <div class="btn-group d-flex task" role="group">
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-action="close">&times;
-                </button>
-                <button
-                    class="btn btn-primary"
-                    data-action="edit">
-                    <span
-                        class="text-left"
-                        data-taskText="default text"
-                        contenteditable="false">
-                        default text
-                    </span>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-action="subtractMin">
-                    -
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary">
-                    <span
-                        class="timer"
-                        data-timer="25">
-                        25
-                    </span>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-action="addMin">
-                    +
-                </button>
-            </div>
-            <div class="btn-group d-flex task" role="group">
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-action="close">&times;
-                </button>
-                <button
-                    class="btn btn-primary"
-                    data-action="edit">
-                    <span
-                        class="text-left"
-                        data-taskText="default text"
-                        contenteditable="false">
-                        default text
-                    </span>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-action="subtractMin">
-                    -
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary">
-                    <span
-                        class="timer"
-                        data-timer="25">
-                        25
-                    </span>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-action="addMin">
-                    +
-                </button>
-            </div>
-            <div class="btn-group d-flex task" role="group">
-                <button type="button" class="btn btn-primary" data-action="close">&times;</button>
+            <div class="taskContainer"></div>
+        </div>
+        <hr />
+        <div class="container-fluid">
+            <div class="btn-group d-flex taskExample" role="group">
+                <button type="button" class="btn btn-primary" data-action="removeTask">&times;</button>
                 <button class="btn btn-primary" data-action="edit">
                     <span class="text-left" data-taskText="default text" contenteditable="false">default text</span>
                 </button>
@@ -100,12 +28,12 @@
                 </button>
                 <button type="button" class="btn btn-primary" data-action="addMin">+</button>
             </div>
-        </div>
-        <hr />
-        <div class="container-fluid">
             <button
                 class="btn btn-primary"
                 data-action="addTask">Add Task</button>
+            <button
+                class="btn btn-primary"
+                data-action="logTasks">Log tasks</button>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
