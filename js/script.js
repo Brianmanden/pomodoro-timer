@@ -26,14 +26,14 @@
 
             switch(action){
                 case 'close':
-                    console.log(action);
+                    console.log(action, elem);
+                    elem.parentNode.remove();
                 break;
 
                 case 'edit':
                     console.log(action, taskTextElem);
                     taskTextElem.contentEditable = true;
                     taskTextElem.focus();
-                    console.log(action, taskTextElem);
                 break;
 
                 case 'subtract':

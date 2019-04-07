@@ -1,3 +1,7 @@
-.timer::before{
+.task{
+    margin-bottom: 20px;
+}
+
+.task .timer::before{
     content: '⏰ ';
 }
