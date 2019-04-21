@@ -1,11 +1,9 @@
-### TODO list
+# TODO list
 
 1 CRUD for task elements
-- skrive script der kan gemme til local storage
 - prefix + key/value-pairs eller komplet json struktur ?
 
 2 oprette task element
-- oprettes med default tekst
 - følger Pomodoro teknikken med 
 
 ```
@@ -19,13 +17,15 @@
     After four pomodoros, take a longer break (15–30 minutes), reset your checkmark count to zero, then go to step 1.
 ```
 
-3 slette task element
-
-4 rette task element
-- rette tekst
-
-5 notifikationer
+3 notifikationer
 - ballon popup
 - lyd ?
 
-6 CRUD for default sæt af tasks
+4 CRUD for default sæt af tasks
+
+---
+
+# BUGS
+
+* Default text
+  * Can edit through clicking button but not when clicked directly

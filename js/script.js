@@ -5,13 +5,6 @@
         alert("Browser does not support LocalStorage");
     }
 
-    const pomodoros = JSON.parse(localStorage.getItem('pomodoros'));
-    const taskContainer = document.querySelectorAll('.taskContainer')[0];
-    const pomodoroObj = {
-        description: 'container for all the pomodoro tasks',
-        tasks: [],
-    };
-
     class Task{
         constructor(){
             this.text = "default text";
@@ -19,6 +12,41 @@
             this.id = Math.floor(Math.random()*1000000000);
         }
     }
+
+    const taskContainer = document.querySelectorAll('.taskContainer')[0];
+
+    function localStoredPomodorosExists(){
+        return localStorage.getItem('pomodoros') !== null;
+    }
+
+    function getPomodoroObj(){
+        return localStoredPomodorosExists() ? JSON.parse(localStorage.getItem('pomodoros')) : null;
+    }
+
+    function setPomodoroObj(pomodoroObj){
+        localStorage.setItem('pomodoros', JSON.stringify(pomodoroObj));
+    }
+
+    function savePomodoros(){
+        console.log(pomodoros);
+        console.log(taskContainer);
+    }
+
+    function init(){
+        let returnObj = {
+            description: 'container for all the pomodoro tasks',
+            tasks: [],
+        };
+            
+        if(localStoredPomodorosExists()){
+            returnObj = getPomodoroObj();
+        }
+
+        setPomodoroObj(returnObj);
+        return returnObj;
+    }
+
+    let pomodoroObj = init();
 
     // Add generic eventlisteners
     document.addEventListener('click', (event) => {
@@ -31,16 +59,13 @@
                     if(!elem.parentNode.classList.contains('taskExample')){
                         elem.parentNode.remove();
                     }
-                    // BJA WIP
-                    // console.log(elem.parentNode.id);
-                    // let pomodoros = JSON.parse(localStorage.getItem('pomodoros'));
-                    // pomodoros.tasks.forEach((item, index) => {
-                    //     console.log(item.id, index, elem.parentNode.id);
-                    //     if(item.id == elem.parentNode.id){
-                    //         var thing = pomodoros.tasks.splice(index, 1);
-                    //         console.log(thing);
-                    //     }
-                    // });
+
+                    pomodoroObj.tasks.forEach((item, index) => {
+                        if(item.id == elem.parentNode.id){
+                            var task = pomodoroObj.tasks.splice(index, 1);
+                            setPomodoroObj(pomodoroObj);
+                        }
+                    });
                 break;
 
                 case 'edit':
@@ -66,7 +91,6 @@
                 break;
 
                 case 'addTask':
-                    console.log(action);
                     const task = new Task();
                     let taskExample = document.querySelectorAll(".taskExample")[0];
                     const taskClone = taskExample.cloneNode(true);
@@ -81,14 +105,26 @@
                     task.id = taskId;
                     task.timer = taskClone.querySelector("[data-timer]").dataset.timer;
                     task.text = taskClone.querySelector("[data-taskText]").innerHTML;
-                                        
+
                     pomodoroObj.tasks.push(task);
-                    localStorage.setItem('pomodoros', JSON.stringify(pomodoroObj));
+                    setPomodoroObj(pomodoroObj);
                 break;
 
                 case 'logTasks':
-                    console.log(action);
-                    console.log(JSON.parse(localStorage.getItem('pomodoros')));
+                    if(localStoredPomodorosExists() && getPomodoroObj().tasks.length > 0){
+                        console.table(getPomodoroObj().tasks);
+                    }else{
+                        console.log("no pomodoro tasks in local storage");
+                    }
+                break;
+
+                case 'clearTasks':
+                    if(localStoredPomodorosExists()){
+                        pomodoroObj = getPomodoroObj();
+                        pomodoroObj.tasks = [];
+                        setPomodoroObj(pomodoroObj);
+                    }
+                break;
             }
         }else{
             console.log("click but no action");
