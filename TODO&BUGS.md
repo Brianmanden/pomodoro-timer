@@ -1,10 +1,6 @@
 # TODO list
 
-1 CRUD for task elements
-- prefix + key/value-pairs eller komplet json struktur ?
-
-2 oprette task element
-- følger Pomodoro teknikken med 
+# Pomodoro teknik
 
 ```
     There are six steps in the original technique:
@@ -17,11 +13,16 @@
     After four pomodoros, take a longer break (15–30 minutes), reset your checkmark count to zero, then go to step 1.
 ```
 
-3 notifikationer
-- ballon popup
+## Init
+- Load tasks fra local storage
+- Læg dem på listen i viewet
+
+
+## Notifikationer
+- ballon popup ?
 - lyd ?
 
-4 CRUD for default sæt af tasks
+## CRUD for default sæt af tasks
 
 ---
 

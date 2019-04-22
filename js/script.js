@@ -27,11 +27,6 @@
         localStorage.setItem('pomodoros', JSON.stringify(pomodoroObj));
     }
 
-    function savePomodoros(){
-        console.log(pomodoros);
-        console.log(taskContainer);
-    }
-
     function init(){
         let returnObj = {
             description: 'container for all the pomodoro tasks',
