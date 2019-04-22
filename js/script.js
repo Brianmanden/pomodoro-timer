@@ -15,6 +15,29 @@
 
     const taskContainer = document.querySelectorAll('.taskContainer')[0];
 
+    function init(){
+        let returnObj = {
+            description: 'container for all the pomodoro tasks',
+            tasks: [],
+        };
+
+        if(localStoredPomodorosExists()){
+            returnObj = getPomodoroObj();
+        }
+
+        if(localStoredPomodorosExists() && getPomodoroObj().tasks.length > 0){
+            console.table(getPomodoroObj().tasks);
+            returnObj.tasks.forEach((task) => {
+                addTaskElement(task);
+            });
+        }
+
+        setPomodoroObj(returnObj);
+        return returnObj;
+    }
+
+    let pomodoroObj = init();
+
     function localStoredPomodorosExists(){
         return localStorage.getItem('pomodoros') !== null;
     }
@@ -27,21 +50,17 @@
         localStorage.setItem('pomodoros', JSON.stringify(pomodoroObj));
     }
 
-    function init(){
-        let returnObj = {
-            description: 'container for all the pomodoro tasks',
-            tasks: [],
-        };
-            
-        if(localStoredPomodorosExists()){
-            returnObj = getPomodoroObj();
-        }
+    // clone HTML task element, set properties and append it to the task container
+    function addTaskElement(task){
+        let taskExample = document.querySelectorAll(".taskExample")[0];
+        const taskClone = taskExample.cloneNode(true);
+        taskClone.classList = "btn-group d-flex task";
+        taskClone.id = task.id;
+        taskClone.querySelector("[data-timer]").dataset.timer = task.timer;
+        taskClone.querySelector("[data-taskText]").innerHTML = task.text;
 
-        setPomodoroObj(returnObj);
-        return returnObj;
+        taskContainer.appendChild(taskClone);
     }
-
-    let pomodoroObj = init();
 
     // Add generic eventlisteners
     document.addEventListener('click', (event) => {
@@ -50,6 +69,29 @@
             const action = event.target.dataset["action"];
 
             switch(action){
+                case 'addTask':
+                    const task = new Task();
+
+                    addTaskElement(task);
+                    let taskExample = document.querySelectorAll(".taskExample")[0];
+                    const taskClone = taskExample.cloneNode(true);
+                    const taskId = Math.floor(Math.random()*10000000);
+
+                    // clone HTML task element and append it to the task container
+                    taskClone.id = taskId;
+                    taskClone.classList = "btn-group d-flex task";
+                    taskContainer.appendChild(taskClone);
+                    
+                    // set values for task
+                    task.id = taskId;
+                    task.timer = taskClone.querySelector("[data-timer]").dataset.timer;
+                    task.text = taskClone.querySelector("[data-taskText]").innerHTML;
+
+                    //write task to local storage
+                    pomodoroObj.tasks.push(task);
+                    setPomodoroObj(pomodoroObj);
+                break;
+
                 case 'removeTask':
                     if(!elem.parentNode.classList.contains('taskExample')){
                         elem.parentNode.remove();
@@ -83,26 +125,6 @@
                     addValue++;
                     elem.parentElement.querySelector("[data-timer]").innerHTML = addValue;
                     elem.parentElement.querySelector("[data-timer]").dataset.timer = addValue;
-                break;
-
-                case 'addTask':
-                    const task = new Task();
-                    let taskExample = document.querySelectorAll(".taskExample")[0];
-                    const taskClone = taskExample.cloneNode(true);
-                    const taskId = Math.floor(Math.random()*10000000);
-
-                    // clone HTML task element and append it to the task container
-                    taskClone.id = taskId;
-                    taskClone.classList = "btn-group d-flex task";
-                    taskContainer.appendChild(taskClone);
-                    
-                    // set values for task and write it to local storage
-                    task.id = taskId;
-                    task.timer = taskClone.querySelector("[data-timer]").dataset.timer;
-                    task.text = taskClone.querySelector("[data-taskText]").innerHTML;
-
-                    pomodoroObj.tasks.push(task);
-                    setPomodoroObj(pomodoroObj);
                 break;
 
                 case 'logTasks':
