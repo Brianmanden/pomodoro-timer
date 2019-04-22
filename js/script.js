@@ -56,7 +56,7 @@
         const taskClone = taskExample.cloneNode(true);
         taskClone.classList = "btn-group d-flex task";
         taskClone.id = task.id;
-        taskClone.querySelector("[data-timer]").dataset.timer = task.timer;
+        taskClone.querySelector("[data-timer]").innerHTML = task.timer;
         taskClone.querySelector("[data-taskText]").innerHTML = task.text;
 
         taskContainer.appendChild(taskClone);
@@ -70,22 +70,13 @@
 
             switch(action){
                 case 'addTask':
+                    const taskExample = document.querySelectorAll(".taskExample")[0];
                     const task = new Task();
 
+                    task.id = Math.floor(Math.random()*10000000);;
+                    task.timer = taskExample.querySelector("[data-timer]").dataset.timer;
+                    task.text = taskExample.querySelector("[data-taskText]").innerHTML;
                     addTaskElement(task);
-                    let taskExample = document.querySelectorAll(".taskExample")[0];
-                    const taskClone = taskExample.cloneNode(true);
-                    const taskId = Math.floor(Math.random()*10000000);
-
-                    // clone HTML task element and append it to the task container
-                    taskClone.id = taskId;
-                    taskClone.classList = "btn-group d-flex task";
-                    taskContainer.appendChild(taskClone);
-                    
-                    // set values for task
-                    task.id = taskId;
-                    task.timer = taskClone.querySelector("[data-timer]").dataset.timer;
-                    task.text = taskClone.querySelector("[data-taskText]").innerHTML;
 
                     //write task to local storage
                     pomodoroObj.tasks.push(task);
